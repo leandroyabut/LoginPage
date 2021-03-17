@@ -1,6 +1,7 @@
 package com.leandroyabut.LoginPage;
 
 import java.io.*;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -10,26 +11,11 @@ public class LoginServlet extends HttpServlet {
     private String name;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
-        boolean loginSuccess = Boolean.parseBoolean(req.getParameter("success"));
 
-        StringBuilder feedback = new StringBuilder("Login ");
-
-        if(loginSuccess) {
-            feedback.append("successful!");
-        } else feedback.append("failed...");
-
-        PrintWriter writer = resp.getWriter();
-
-        writer.println("<html>");
-        writer.println("<head>");
-        writer.println("<title>Login</title>");
-        writer.println("</head>");
-        writer.println("<body>");
-        writer.println("<h1>" + feedback.toString() + "</h1>");
-        writer.println("</body>");
-        writer.println("</head>");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("loginstatus.html");
+        requestDispatcher.forward(req, resp);
     }
 
     @Override
